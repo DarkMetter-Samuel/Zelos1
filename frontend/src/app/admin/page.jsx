@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import './admin.css';
-import Header from '../components/headers_admin/header_admin';
+import Header from '../components/headers/header.jsx';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const chamadosAdmIniciais = [
