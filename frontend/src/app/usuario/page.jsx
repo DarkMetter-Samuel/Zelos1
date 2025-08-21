@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import Header from '../components/headers/header.jsx';
+import Header from '../components/layout/headers/header.jsx';
 import './usuario.css';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';

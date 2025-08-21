@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import './tecnico.css';
-import Header from '../components/headers/header';
+import Header from '../components/layout/headers/header';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const currentUserId = 1;

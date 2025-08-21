@@ -466,3 +466,27 @@
     justify-content: flex-end; 
   }
 }
+/* Define o container principal que segura a sidebar e o conteúdo */
+.admin-layout-container {
+  display: flex;
+}
+
+/* 
+  Cria o espaço para a sidebar.
+  Como a sidebar tem 'position: fixed', ela sai do fluxo normal.
+  Este margin-left no conteúdo principal garante que ele não fique embaixo da sidebar.
+*/
+.main-content-area {
+  margin-left: 260px; /* Deve ser igual à largura da sua sidebar */
+  width: calc(100% - 260px); /* Ocupa o restante da largura da tela */
+  min-height: 100vh;
+}
+
+/* Em telas menores, a sidebar pode ser oculta, então o conteúdo principal ocuparia a tela toda */
+@media (max-width: 900px) {
+  .main-content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+  /* Lembre-se que você precisará de lógica adicional para mostrar/esconder a sidebar em telas menores */
+}
