@@ -88,7 +88,7 @@
         } else {
             document.getElementById('id').value = livroId;
 
-            fetch(`http://localhost:3000/livros/${livroId}`)
+            fetch(`http://localhost:3001/livro/livros/${livroId}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('titulo').value = data.titulo || '';
@@ -107,7 +107,7 @@
                 const formData = new FormData(form);
 
                 try {
-                    const response = await fetch(`http://localhost:3000/livros/${livroId}`, {
+                    const response = await fetch(`http://localhost:3001/livro/livros/${livroId}`, {
                         method: 'PUT',
                         headers: {
                             'Authorization': `Bearer SENHA_SECRETA` // Substitua pelo seu token JWT
