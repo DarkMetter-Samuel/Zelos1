@@ -143,6 +143,11 @@ export default function ChamadosUsuario() {
 
         <div className="chamados-container">
           <h2 className="chamados-title">Abrir Chamados</h2>
+          {/* INTRODUÇÃO ADICIONADA AQUI */}
+          <p className="chamados-intro">
+            Bem-vindo à nossa central de ajuda. Para registrar uma nova solicitação ou relatar um problema, 
+            clique no botão abaixo e preencha o formulário. Nossa equipe responderá o mais breve possível.
+          </p>
           
           <div className="novo-chamado-container">
             {!isFormVisible ? (
