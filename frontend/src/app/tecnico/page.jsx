@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import './tecnico.css';
-import Header from '../components/layout/headers/header';
+import Sidebar from '../components/layout/sidebar/Sidebar.jsx';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const currentUserId = 1;
@@ -198,7 +198,7 @@ export default function PainelChamados() {
       </motion.div>
 
       <div className="content-wrapper">
-        <Header />
+        <Sidebar />
         <div className="painel-container">
           <div className="painel-header">
             <div>

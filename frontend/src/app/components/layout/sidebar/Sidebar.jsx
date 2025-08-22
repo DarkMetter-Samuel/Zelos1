@@ -5,11 +5,11 @@ import './sidebar.css';
 // Opcional: Para usar ícones
 // import { FiGrid, FiSettings, FiUsers } from 'react-icons/fi';
 
-const navLinks = [
-  { path: '/admin', label: 'Painel de Chamados' /*, icon: <FiGrid />*/ },
-  { path: '/admin/usuarios', label: 'Usuários' /*, icon: <FiUsers />*/ },
-  { path: '/admin/config', label: 'Configurações' /*, icon: <FiSettings />*/ },
-];
+// const navLinks = [
+//   { path: '/admin', label: 'Painel de Chamados' /*, icon: <FiGrid />*/ },
+//   { path: '/admin/usuarios', label: 'Usuários' /*, icon: <FiUsers />*/ },
+//   { path: '/admin/config', label: 'Configurações' /*, icon: <FiSettings />*/ },
+// ];
 
 const Sidebar = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
@@ -49,19 +49,7 @@ const Sidebar = () => {
           />
         </div>
 
-        <nav className="sidebar-nav">
-          {navLinks.map((link, index) => (
-            // ALTERADO: Trocado NavLink por <a> e 'to' por 'href'
-            <a 
-              key={index} 
-              href={link.path}
-              className="nav-link" // A classe 'active' não será mais aplicada automaticamente
-            >
-              {/* {link.icon} */}
-              <span>{link.label}</span>
-            </a>
-          ))}
-        </nav>
+        
       </div>
 
       <div className="sidebar-bottom" ref={dropdownRef}>

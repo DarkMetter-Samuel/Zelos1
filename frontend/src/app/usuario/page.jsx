@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import Header from '../components/layout/headers/header.jsx';
+import Sidebar from '../components/layout/sidebar/Sidebar.jsx';
 import './usuario.css';
 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
@@ -139,7 +139,7 @@ export default function ChamadosUsuario() {
       </motion.div>
 
       <div className="content-wrapper">
-        <Header />
+        <Sidebar />
 
         <div className="chamados-container">
           <h2 className="chamados-title">Abrir Chamados</h2>
