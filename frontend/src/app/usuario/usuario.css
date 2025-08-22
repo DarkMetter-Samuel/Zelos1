@@ -1,7 +1,6 @@
 .usuario-layout-container {
   display: flex;
 }
-
 .main-content-area {
   margin-left: 260px;
   width: calc(100% - 260px);
