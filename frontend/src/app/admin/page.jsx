@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import './admin.css';
-import Sidebar from '../components/layout/sidebar/Sidebar.jsx';
+import Sidebar from '../components/layout/sidebar_admin/Sidebar';
 import Footer from '../components/layout/footer/footer'; // <- FOOTER IMPORTADO AQUI
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
