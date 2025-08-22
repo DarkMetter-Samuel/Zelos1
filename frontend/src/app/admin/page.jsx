@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import './admin.css';
 import Sidebar from '../components/layout/sidebar/Sidebar.jsx';
+import Footer from '../components/layout/footer/footer'; // <- FOOTER IMPORTADO AQUI
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const chamadosAdmIniciais = [
@@ -97,10 +98,8 @@ export default function ChamadosAdm() {
   const getStatusClass = (status) => { if (status === 'Aberto') return 'aberto'; if (status === 'Em Andamento') return 'em-andamento'; if (status === 'Concluído') return 'concluido'; return ''; };
 
   return (
-    // 2. ADICIONAR UM CONTAINER GERAL PARA O LAYOUT
     <div className="admin-layout-container">
       <Sidebar />
-      {/* 3. ADICIONAR UM WRAPPER PARA O CONTEÚDO PRINCIPAL */}
       <main className="main-content-area">
         <motion.div className="page-wrapper" onMouseMove={handleMouseMove}>
           <motion.div className="background">
@@ -218,6 +217,9 @@ export default function ChamadosAdm() {
             </div>
           )}
         </motion.div>
+        
+        {/* FOOTER ADICIONADO AQUI */}
+        <Footer />
       </main>
     </div>
   );

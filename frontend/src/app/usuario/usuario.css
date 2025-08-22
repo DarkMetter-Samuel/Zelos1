@@ -1,9 +1,53 @@
+/* Garanta que estas regras estejam em usuario.css */
+.usuario-layout-container {
+  display: flex;
+}
+
+.main-content-area {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  flex-grow: 1;
+}
+
+@media (max-width: 900px) {
+  .main-content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+.main-content-area {
+  margin-left: 260px;
+  /* IMPORTANTE: Mude se a largura da sua sidebar for diferente */
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .page-wrapper {
   position: relative;
   overflow: hidden;
-  min-height: 100vh;
   background: linear-gradient(150deg, #000000, #1e2128, #282c34);
+  flex-grow: 1;
+  /* Faz o conteúdo principal crescer, empurrando o footer para baixo */
 }
+
+@media (max-width: 900px) {
+  .main-content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
+/* --- FIM DAS REGRAS DE LAYOUT --- */
+
 
 .content-wrapper {
   position: relative;
@@ -26,13 +70,11 @@
   height: 100%;
 }
 
-/* Estilos base para todas as formas */
 .shape {
   position: absolute;
   will-change: transform;
 }
 
-/* Variações de aparência para as formas */
 .shape1 {
   border-radius: 30%;
   border: 2px solid #ef4444;
@@ -53,7 +95,6 @@
   transform: rotate(45deg);
 }
 
-/* Linhas conectoras com um visual mais sutil */
 .connecting-lines {
   position: absolute;
   inset: 0;
@@ -64,7 +105,6 @@
   will-change: transform;
 }
 
-/* Pontos flutuantes com variação de tamanho e brilho */
 .floating-point {
   position: absolute;
   background-color: #f87171;
@@ -74,7 +114,6 @@
   height: 3px;
   will-change: transform;
 }
-
 
 * {
   font-family: montserrat, sans-serif;
@@ -91,7 +130,6 @@
   --white: #ffffff;
 }
 
-/* ===== CONTAINER ===== */
 .chamados-container {
   padding: 40px 20px;
   display: flex;
@@ -99,16 +137,14 @@
   align-items: center;
 }
 
-/* ===== TÍTULO E INTRODUÇÃO ===== */
 .chamados-title {
   font-size: 2rem;
   font-weight: bold;
   color: var(--white);
-  margin-bottom: 15px; /* Margem ajustada */
+  margin-bottom: 15px;
   text-align: center;
 }
 
-/* ESTILO ADICIONADO PARA A INTRODUÇÃO */
 .chamados-intro {
   color: var(--texto-secundario);
   text-align: center;
@@ -118,7 +154,6 @@
   font-size: 1rem;
 }
 
-/* ===== MODAL DE DETALHES ===== */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -194,7 +229,6 @@
   margin: 18px 0;
 }
 
-/* ===== GRID DE CARDS ===== */
 .meus-chamados-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -288,7 +322,6 @@
   background-color: var(--senai-vermelho-escuro);
 }
 
-/* ===== FORMULÁRIO NOVO CHAMADO ===== */
 .novo-chamado-container {
   margin-bottom: 20px;
   text-align: center;
@@ -412,7 +445,6 @@
   }
 }
 
-/* ===== ANIMAÇÕES ===== */
 @keyframes scaleIn {
   from {
     transform: scale(0.9);

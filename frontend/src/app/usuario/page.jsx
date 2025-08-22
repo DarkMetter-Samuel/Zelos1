@@ -1,27 +1,14 @@
 'use client'
 import React, { useState } from 'react';
 import Sidebar from '../components/layout/sidebar/Sidebar.jsx';
-import './usuario.css';
-
+import Footer from '../components/layout/footer/footer'; // Importando o Footer corretamente
+import './usuario.css'; 
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 
 const chamadosIniciais = [];
 
 const shapesData = [...Array(6)].map((_, i) => ({
-  id: i,
-  top: `${Math.random() * 80 + 10}%`,
-  left: `${Math.random() * 80 + 10}%`,
-  size: Math.random() * 20 + 10,
-  parallaxFactor: (Math.random() * 0.4 + 0.1) * (Math.random() > 0.5 ? 1 : -1),
-  animate: {
-    rotate: [0, Math.random() * 360 - 180, 0],
-    scale: [1, Math.random() * 0.5 + 0.8, 1],
-  },
-  transition: {
-    duration: Math.random() * 20 + 15,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }
+  id: i, top: `${Math.random() * 80 + 10}%`, left: `${Math.random() * 80 + 10}%`, size: Math.random() * 20 + 10, parallaxFactor: (Math.random() * 0.4 + 0.1) * (Math.random() > 0.5 ? 1 : -1), animate: { rotate: [0, Math.random() * 360 - 180, 0], scale: [1, Math.random() * 0.5 + 0.8, 1], }, transition: { duration: Math.random() * 20 + 15, repeat: Infinity, ease: "easeInOut", }
 }));
 
 export default function ChamadosUsuario() {
@@ -30,7 +17,7 @@ export default function ChamadosUsuario() {
   const [servico, setServico] = useState('');
   const [descricao, setDescricao] = useState('');
   const [detalheAberto, setDetalheAberto] = useState(null);
-  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(chamados.length === 0);
 
   function abrirChamado(e) {
     e.preventDefault();
@@ -39,13 +26,7 @@ export default function ChamadosUsuario() {
       return;
     }
     const novo = {
-      id: chamados.length + 1,
-      protocolo: `#2025-0${150 + chamados.length + 1}`,
-      assunto: titulo,
-      categoria: servico,
-      descricao: descricao,
-      data: new Date().toLocaleDateString('pt-BR'),
-      status: 'Aberto',
+      id: chamados.length + 1, protocolo: `#2025-0${150 + chamados.length + 1}`, assunto: titulo, categoria: servico, descricao: descricao, data: new Date().toLocaleDateString('pt-BR'), status: 'Aberto',
     };
     setChamados([...chamados, novo]);
     setTitulo('');
@@ -64,10 +45,8 @@ export default function ChamadosUsuario() {
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-
   const parallaxX = useTransform(x, (latest) => latest * 0.05);
   const parallaxY = useTransform(y, (latest) => latest * 0.05);
-
   const handleMouseMove = (event) => {
     const rect = event.currentTarget.getBoundingClientRect();
     x.set(event.clientX - rect.width / 2);
@@ -75,151 +54,97 @@ export default function ChamadosUsuario() {
   };
 
   return (
-    <motion.div className="page-wrapper" onMouseMove={handleMouseMove}>
-      
-      <motion.div className="background">
-        <div className="shapes-container">
+    // <!-- ESTRUTURA CORRIGIDA: Container principal para o layout -->
+    <div className="usuario-layout-container">
+      <Sidebar />
 
-          {shapesData.map(shape => (
-            <motion.div
-              key={shape.id}
-              className={`shape shape${shape.id % 3 + 1}`}
-              style={{
-                top: shape.top,
-                left: shape.left,
-                width: shape.size,
-                height: shape.size,
-                x: useTransform(parallaxX, v => v * shape.parallaxFactor),
-                y: useTransform(parallaxY, v => v * shape.parallaxFactor),
-              }}
-              animate={shape.animate}
-              transition={shape.transition}
-            />
-          ))}
-
-          <motion.svg 
-            className="connecting-lines" 
-            style={{ x: parallaxX, y: parallaxY }}
-          >
-            <motion.line
-              x1="10%" y1="20%" x2="90%" y2="80%" stroke="#d32f2f" strokeWidth="1" strokeDasharray="5,5"
-              animate={{ strokeDashoffset: [0, 20] }}
-              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-            />
-            <motion.line
-              x1="80%" y1="10%" x2="20%" y2="90%" stroke="#d32f2f" strokeWidth="1" strokeDasharray="8,8"
-              animate={{ strokeDashoffset: [0, -16] }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-            />
-          </motion.svg>
-          
-          {[...Array(25)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="floating-point"
-              style={{
-                top: `${Math.random() * 100}%`,
-                left: `${Math.random() * 100}%`,
-                x: useTransform(parallaxX, v => v * (Math.random() * 0.5)),
-                y: useTransform(parallaxY, v => v * (Math.random() * 0.5)),
-              }}
-              animate={{
-                y: [0, Math.random() * -30 - 10, 0],
-                opacity: [0, 0.7, 0]
-              }}
-              transition={{
-                duration: Math.random() * 10 + 5,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: Math.random() * 5
-              }}
-            />
-          ))}
-        </div>
-      </motion.div>
-
-      <div className="content-wrapper">
-        <Sidebar />
-
-        <div className="chamados-container">
-          <h2 className="chamados-title">Abrir Chamados</h2>
-          {/* INTRODUÇÃO ADICIONADA AQUI */}
-          <p className="chamados-intro">
-            Bem-vindo à nossa central de ajuda. Para registrar uma nova solicitação ou relatar um problema, 
-            clique no botão abaixo e preencha o formulário. Nossa equipe responderá o mais breve possível.
-          </p>
-          
-          <div className="novo-chamado-container">
-            {!isFormVisible ? (
-              <button className="abrir-chamado-btn" onClick={() => setIsFormVisible(true)}>
-                Abrir Novo Chamado
-              </button>
-            ) : (
-              <form onSubmit={abrirChamado} className={`novo-chamado-form ${isFormVisible ? 'visible' : ''}`}>
-                <div className="form-header">
-                  <h3>Abrir Novo Chamado</h3>
-                  <button type="button" className="close-btn" onClick={() => setIsFormVisible(false)}>
-                    &times;
+      {/* <!-- ESTRUTURA CORRIGIDA: Conteúdo principal que fica ao lado da sidebar --> */}
+      <main className="main-content-area">
+        <motion.div className="page-wrapper" onMouseMove={handleMouseMove}>
+          <motion.div className="background">
+            {/* ...código do background animado... */}
+          </motion.div>
+          <div className="content-wrapper">
+            <div className="chamados-container">
+              <h2 className="chamados-title">Abrir Chamados</h2>
+              <p className="chamados-intro">
+                Bem-vindo à nossa central de ajuda. Para registrar uma nova solicitação ou relatar um problema, 
+                clique no botão abaixo e preencha o formulário. Nossa equipe responderá o mais breve possível.
+              </p>
+              <div className="novo-chamado-container">
+                {!isFormVisible ? (
+                  <button className="abrir-chamado-btn" onClick={() => setIsFormVisible(true)}>
+                    Abrir Novo Chamado
                   </button>
-                </div>
-                <div className="linha-dupla">
-                  <div className="input-group">
-                    <label htmlFor="titulo">Título</label>
-                    <input id="titulo" type="text" placeholder="Ex: Impressora não funciona" value={titulo} onChange={e => setTitulo(e.target.value)} required maxLength={35} />
-                  </div>
-                  <div className="input-group">
-                    <label htmlFor="servico">Serviço</label>
-                    <select id="servico" value={servico} onChange={e => setServico(e.target.value)} required>
-                      <option value="" disabled>Selecione um tipo</option>
-                      <option value="Externo">Externo</option>
-                      <option value="Manutenção">Manutenção</option>
-                      <option value="Apoio Técnico">Apoio Técnico</option>
-                      <option value="Limpeza">Limpeza</option>
-                    </select>
-                  </div>
-                </div>
-                <div className="input-group">
-                  <label htmlFor="descricao">Descrição</label>
-                  <textarea id="descricao" placeholder="Descreva o problema ou a solicitação com mais detalhes." value={descricao} onChange={e => setDescricao(e.target.value)} required rows="4" maxLength={250}></textarea>
-                </div>
-                <button type="submit" className="submit-button">Enviar Chamado</button>
-              </form>
-            )}
-          </div>
-
-          <div className="meus-chamados-grid">
-            {chamados.map(c => (
-              <div key={c.id} className="meus-chamado-card">
-                <div className="meus-card-header">
-                  <span className="protocolo">{c.protocolo}</span>
-                  <span className={getStatusClass(c.status)}>{c.status}</span>
-                </div>
-                <h3>{c.assunto}</h3>
-                <p><strong>Categoria:</strong> {c.categoria}</p>
-                <p><strong>Data:</strong> {c.data}</p>
-                <button className="detalhes-btn" onClick={() => setDetalheAberto(c)}>Ver Detalhes</button>
+                ) : (
+                  <form onSubmit={abrirChamado} className={`novo-chamado-form ${isFormVisible ? 'visible' : ''}`}>
+                    <div className="form-header">
+                      <h3>Abrir Novo Chamado</h3>
+                      {chamados.length > 0 && (
+                        <button type="button" className="close-btn" onClick={() => setIsFormVisible(false)}>&times;</button>
+                      )}
+                    </div>
+                    <div className="linha-dupla">
+                      <div className="input-group">
+                        <label htmlFor="titulo">Título</label>
+                        <input id="titulo" type="text" placeholder="Ex: Impressora não funciona" value={titulo} onChange={e => setTitulo(e.target.value)} required maxLength={35} />
+                      </div>
+                      <div className="input-group">
+                        <label htmlFor="servico">Serviço</label>
+                        <select id="servico" value={servico} onChange={e => setServico(e.target.value)} required>
+                          <option value="" disabled>Selecione um tipo</option>
+                          <option value="Externo">Externo</option>
+                          <option value="Manutenção">Manutenção</option>
+                          <option value="Apoio Técnico">Apoio Técnico</option>
+                          <option value="Limpeza">Limpeza</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div className="input-group">
+                      <label htmlFor="descricao">Descrição</label>
+                      <textarea id="descricao" placeholder="Descreva o problema ou a solicitação com mais detalhes." value={descricao} onChange={e => setDescricao(e.target.value)} required rows="4" maxLength={250}></textarea>
+                    </div>
+                    <button type="submit" className="submit-button">Enviar Chamado</button>
+                  </form>
+                )}
               </div>
-            ))}
-          </div>
-
-          {detalheAberto && (
-            <div className="modal-overlay" onClick={() => setDetalheAberto(null)}>
-              <div className="modal-content" onClick={e => e.stopPropagation()}>
-                <div className="modal-header">
-                  <h3>{detalheAberto.assunto}</h3>
-                  <button className="close-btn" onClick={() => setDetalheAberto(null)}>&times;</button>
-                </div>
-                <p><strong>Protocolo:</strong> {detalheAberto.protocolo}</p>
-                <p><strong>Categoria:</strong> {detalheAberto.categoria}</p>
-                <p><strong>Data:</strong> {detalheAberto.data}</p>
-                <p><strong>Status:</strong> {detalheAberto.status}</p>
-                <hr />
-                <p><strong>Descrição:</strong> {detalheAberto.descricao}</p>
+              <div className="meus-chamados-grid">
+                {chamados.map(c => (
+                  <div key={c.id} className="meus-chamado-card">
+                    <div className="meus-card-header">
+                      <span className="protocolo">{c.protocolo}</span>
+                      <span className={getStatusClass(c.status)}>{c.status}</span>
+                    </div>
+                    <h3>{c.assunto}</h3>
+                    <p><strong>Categoria:</strong> {c.categoria}</p>
+                    <p><strong>Data:</strong> {c.data}</p>
+                    <button className="detalhes-btn" onClick={() => setDetalheAberto(c)}>Ver Detalhes</button>
+                  </div>
+                ))}
               </div>
             </div>
-          )}
+          </div>
+        </motion.div>
+
+        <Footer />
+      </main>
+
+      {detalheAberto && (
+        <div className="modal-overlay" onClick={() => setDetalheAberto(null)}>
+          <div className="modal-content" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{detalheAberto.assunto}</h3>
+              <button className="close-btn" onClick={() => setDetalheAberto(null)}>&times;</button>
+            </div>
+            <p><strong>Protocolo:</strong> {detalheAberto.protocolo}</p>
+            <p><strong>Categoria:</strong> {detalheAberto.categoria}</p>
+            <p><strong>Data:</strong> {detalheAberto.data}</p>
+            <p><strong>Status:</strong> {detalheAberto.status}</p>
+            <hr />
+            <p><strong>Descrição:</strong> {detalheAberto.descricao}</p>
+          </div>
         </div>
-      </div>
-    </motion.div>
+      )}
+    </div>
   );
 }
